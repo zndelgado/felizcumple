@@ -286,3 +286,22 @@ body {
   background-color: #fc9d9d;
   color: #a10000;
 }
+
+/* Media query para pantallas grandes */
+@media (min-width: 768px) {
+  #envelope {
+    width: 280px; /* Tamaño original para pantallas grandes */
+    height: 180px; /* Tamaño original para pantallas grandes */
+  }
+
+  .letter {
+    width: 90%; /* Ajusta el ancho para pantallas más grandes */
+  }
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 480px) {
+  #envelope {
+    width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+    height: auto; /* Altura automática para mantener la proporción */
+  }
