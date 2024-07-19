@@ -251,15 +251,220 @@
 
 body {
   background-color: #f7d9da;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .envlope-wrapper {
   height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#envelope {
+  width: 280px;
+  height: 180px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: #f9c5c8;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  transition: width 0.4s, height 0.4s;
+}
+
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.flap {
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 82px solid transparent;
+  border-top: 98px solid #ff3333;
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.pocket {
+  border-left: 140px solid #ff9999;
+  border-right: 140px solid #ff9999;
+  border-bottom: 100px solid #fd8787;
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.letter {
+  position: relative;
+  background-color: #f9c5c8;
+  width: 90%;
+  height: 100%;
+  top: 5%;
+  border-radius: 6px;
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+  transition: transform 0.4s ease, z-index 0.6s;
+}
+
+.letter:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 25%, rgba(239, 215, 239, 0.7) 80%, #eed7ef 100%);
+}
+
+.words {
+  position: absolute;
+  right: 10%;
+  left: 10%;
+  width: 80%;
+  height: 14%;
+}
+
+.words.line1 {
+  top: 8%;
+  width: 100%;
+  height: 7%;
+}
+
+.words.line2 {
+  top: 25%;
+}
+
+.words.line3 {
+  top: 35%;
+}
+
+.words.line4 {
+  top: 45%;
+}
+
+.words.line5 {
+  top: 55%;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.close .flap {
+  transform: rotateX(0deg);
+  z-index: 5;
+}
+
+.close .letter {
+  transform: translateY(0px);
+  z-index: 1;
+}
+
+.open .letter {
+  transform: translateY(-100px) scale(1.2); /* Ajusta el tamaño del papel al abrir */
+  z-index: 2;
+  height: auto;
+}
+
+.hearts {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  pointer-events: none;
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: 50px;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: #D00000;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  pointer-events: none;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.close .heart {
+  opacity: 0;
+  animation: none;
+}
+
+.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  opacity: 1;
+  animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+.a2 {
+  left: 55%;
+  transform: scale(1);
+  opacity: 1;
+  animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  opacity: 1;
+  animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+@keyframes slideUp {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -600px;
+  }
+}
+
+@keyframes sideSway {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 50px;
+  }
 }
 
 .reset {
   text-align: center;
-  margin-top: 50px; /* Ajusta este valor para mover los botones más abajo */
+  position: absolute;
+  bottom: 10px; /* Posiciona los botones más abajo */
+  width: 100%;
 }
 
 .reset button {
@@ -287,21 +492,18 @@ body {
   color: #a10000;
 }
 
-/* Media query para pantallas grandes */
-@media (min-width: 768px) {
-  #envelope {
-    width: 280px; /* Tamaño original para pantallas grandes */
-    height: 180px; /* Tamaño original para pantallas grandes */
-  }
-
-  .letter {
-    width: 90%; /* Ajusta el ancho para pantallas más grandes */
-  }
-}
-
-/* Media query para pantallas pequeñas */
+/* Media query para pantallas más pequeñas */
 @media (max-width: 480px) {
   #envelope {
     width: 90%; /* Ajusta el ancho para pantallas pequeñas */
-    height: auto; /* Altura automática para mantener la proporción */
   }
+
+  .letter {
+    width: 95%;
+    height: 80%;
+  }
+
+  .words {
+    font-size: 12px; /* Ajusta el tamaño del texto para pantallas pequeñas */
+  }
+}
